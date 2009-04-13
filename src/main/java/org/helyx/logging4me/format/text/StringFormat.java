@@ -1,4 +1,6 @@
-package org.helyx.logging4me.text;
+package org.helyx.logging4me.format.text;
+
+import org.helyx.logging4me.text.TextUtil;
 
 public class StringFormat {
 	

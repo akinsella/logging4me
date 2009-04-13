@@ -1,4 +1,4 @@
-package org.helyx.logging4me.format;
+package org.helyx.logging4me.format.number;
 
 import org.helyx.logging4me.util.MathUtil;
 

@@ -5,7 +5,7 @@ import java.util.Enumeration;
 
 import org.helyx.logging4me.appender.Appender;
 import org.helyx.logging4me.category.Category;
-import org.helyx.logging4me.text.StringFormat;
+import org.helyx.logging4me.format.text.StringFormat;
 
 public class Logger {
 

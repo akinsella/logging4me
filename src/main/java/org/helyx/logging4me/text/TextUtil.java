@@ -88,5 +88,31 @@ public class TextUtil {
 
 		return result.toString();
 	}
+	
+	public static String replaceFirst(String haystack, String needle, String replacement) {
+		int needleLength = needle.length();
+		
+		if (needle == null || needleLength == 0) {
+			return haystack;
+		}
+
+		StringBuffer result = new StringBuffer();
+
+		int searchPos = 0;
+
+		final int pos = haystack.indexOf(needle, searchPos);
+		if (pos == -1) { 
+			return haystack;
+		}
+
+		result.append(haystack.substring(searchPos, pos));
+		result.append(replacement);
+
+		searchPos = pos + needle.length();
+
+		result.append(haystack.substring(searchPos));
+
+		return result.toString();
+	}
 
 }
