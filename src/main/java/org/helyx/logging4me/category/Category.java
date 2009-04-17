@@ -10,6 +10,14 @@ public class Category {
 	
 	public String categoryName;
 	
+	public int getLevel() {
+		return level;
+	}
+
+	public void setLevel(int level) {
+		this.level = level;
+	}
+
 	public int level;
 	
 	private boolean wildCard = true;

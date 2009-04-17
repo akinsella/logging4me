@@ -123,6 +123,34 @@ public class Logger {
 
 	
 	
+	public boolean isLoggable(int level) {
+		return level >= category.getLevel();
+	}
+	
+	public boolean isFatalEnabled() {
+		return category.isFatalEnabled();
+	}
+	
+	public boolean isErrorEnabled() {
+		return category.isErrorEnabled();
+	}
+	
+	public boolean isWarnEnabled() {
+		return category.isWarnEnabled();
+	}
+	
+	public boolean isInfoEnabled() {
+		return category.isInfoEnabled();
+	}
+	
+	public boolean isDebugEnabled() {
+		return category.isDebugEnabled();
+	}
+	
+	public boolean isTraceEnabled() {
+		return category.isTraceEnabled();
+	}
+
 	
 	
 	
