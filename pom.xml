@@ -64,7 +64,7 @@
 		<developer>
 			<id>akinsella</id>
 			<name>Alexis Kinsella</name>
-			<email>alexis.kinsell@gmail.com</email>
+			<email>alexis.kinsella@helyx.org</email>
 			<url>http://www.helyx.org</url>
 			<organization>Helyx.org</organization>
 			<organizationUrl>http://www.helyx.org</organizationUrl>
@@ -93,53 +93,90 @@
 			</extension>
 		</extensions>
 
-		<pluginManagement>
-			<plugins>
-				<plugin>
-					<artifactId>maven-compiler-plugin</artifactId>
-					<configuration>
-						<debug>false</debug>
-						<encoding>ISO8859-15</encoding>
-						<fork>false</fork>
-						<source>1.3</source>
-						<target>1.1</target>
-					</configuration>
-				</plugin>
-				<plugin>
-					<artifactId>maven-resources-plugin</artifactId>
-					<configuration>
-						<encoding>ISO8859-15</encoding>
-					</configuration>
-				</plugin>
-				<plugin>
-					<artifactId>maven-surefire-plugin</artifactId>
-					<configuration>
-						<forkMode>never</forkMode>
-					</configuration>
-				</plugin>
-					
-				<!-- Configure Eclipse-Me -->
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-eclipse-plugin</artifactId>
-					<configuration>
-						<buildcommands>
-							<buildcommand>org.eclipse.jdt.core.javabuilder</buildcommand>
-							<buildcommand>eclipseme.core.preverifier</buildcommand>
-						</buildcommands>
-						<projectnatures>
-							<projectnature>org.eclipse.jdt.core.javanature</projectnature>
-							<projectnature>eclipseme.core.nature</projectnature>
-						</projectnatures>
-						<classpathContainers>
-						<!--	<classpathContainer>J2MELIB</classpathContainer> -->
-							<classpathContainer>org.eclipse.jdt.launching.JRE_CONTAINER</classpathContainer>
-						</classpathContainers>
-					</configuration>
-				</plugin>
+		<plugins>
+	        <plugin>
+				<groupId>com.google.code.maven-license-plugin</groupId>
+				<artifactId>maven-license-plugin</artifactId>
+				<version>1.4.0</version>
+	            <configuration>
+	                <basedir>${basedir}</basedir>
+	                <header>${basedir}/src/etc/license/template/apache-license-2.0-header.txt</header>
+	                <quiet>false</quiet>
+	                <failIfMissing>true</failIfMissing>
+	                <aggregate>false</aggregate>
+	                <includes>
+	                    <include>src/**</include>
+	                    <include>**/test/**</include>
+	                </includes>
+	                <excludes>
+	                    <exclude>target/**</exclude>
+	                    <exclude>.svn/**</exclude>
+	                </excludes>
+	                <useDefaultExcludes>true</useDefaultExcludes>
+	                <mapping>
+	                    <xml>XML_STYLE</xml>
+	                    <java>JAVADOC_STYLE</java>
+	                </mapping>
+	                <useDefaultMapping>true</useDefaultMapping>
+	                <properties>
+	                    <year>2007-2009</year>
+	                    <website>http://www.helyx.org</website>
+	                    <organization>Helyx.org</organization>
+	                    <author>Alexis Kinsella</author>
+	                </properties>
+	            </configuration>
+	            <executions>
+	                <execution>
+	                    <goals>
+	                        <goal>check</goal>
+	                    </goals>
+	                </execution>
+	            </executions>
+	        </plugin>			
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<debug>false</debug>
+					<encoding>ISO8859-15</encoding>
+					<fork>false</fork>
+					<source>1.3</source>
+					<target>1.1</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-resources-plugin</artifactId>
+				<configuration>
+					<encoding>ISO8859-15</encoding>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<forkMode>never</forkMode>
+				</configuration>
+			</plugin>
 				
-	        </plugins>
-		</pluginManagement>
+			<!-- Configure Eclipse-Me -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-eclipse-plugin</artifactId>
+				<configuration>
+					<buildcommands>
+						<buildcommand>org.eclipse.jdt.core.javabuilder</buildcommand>
+						<buildcommand>eclipseme.core.preverifier</buildcommand>
+					</buildcommands>
+					<projectnatures>
+						<projectnature>org.eclipse.jdt.core.javanature</projectnature>
+						<projectnature>eclipseme.core.nature</projectnature>
+					</projectnatures>
+					<classpathContainers>
+					<!--	<classpathContainer>J2MELIB</classpathContainer> -->
+						<classpathContainer>org.eclipse.jdt.launching.JRE_CONTAINER</classpathContainer>
+					</classpathContainers>
+				</configuration>
+			</plugin>
+				
+	     </plugins>
 	</build>
 
 	<reporting>
@@ -216,6 +253,13 @@
 			<version>2.0.2</version>
 			<scope>provided</scope>
 		</dependency>
+	
+		<dependency>
+			<groupId>jmock</groupId>
+			<artifactId>jmock</artifactId>
+			<version>1.2.0</version>
+			<scope>test</scope>
+		</dependency>
 		
 		<dependency>
 			<groupId>kxml2</groupId>
@@ -230,9 +274,5 @@
 		</dependency>
 
 	</dependencies>
-
-	<dependencyManagement>
-		<dependencies></dependencies>
-	</dependencyManagement>
 
 </project>
