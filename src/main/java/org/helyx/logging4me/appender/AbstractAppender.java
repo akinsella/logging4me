@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2007-2009 Alexis Kinsella - $ {website} - <Helyx.org>
+ * Copyright (C) 2007-2009 Alexis Kinsella - http://www.helyx.org - <Helyx.org>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,7 +33,8 @@ public abstract class AbstractAppender implements Appender {
 	public void write(int level, Logger logger, String message, Date date) {
 		try {
 			if(isLoggable(level)) {
-				onWrite(level, logger, message, date);
+				String logMessage = formatLog(level, logger, message, date);
+				onWrite(level, logger, message, date, logMessage);
 			}
 		}
 		catch(Exception e) { 
@@ -41,7 +42,7 @@ public abstract class AbstractAppender implements Appender {
 		}
 	}
 
-	public abstract void onWrite(int level, Logger logger, String message, Date date);
+	public abstract void onWrite(int level, Logger logger, String message, Date date, String logMessage);
 	
 	protected String formatLog(int level, Logger logger, String message, Date date) {
 		if (layout == null) {
@@ -71,6 +72,18 @@ public abstract class AbstractAppender implements Appender {
 		return Logger.ERROR >= thresholdLevel;
 	}
 	
+	public void close() throws Exception {
+		// Do Nothing
+	}
+
+	public void flush() throws Exception {
+		// Do Nothing
+	}
+
+	public void open() throws Exception {
+		// Do Nothing
+	}
+
 	public boolean isWarnEnabled() {
 		return Logger.WARN >= thresholdLevel;
 	}

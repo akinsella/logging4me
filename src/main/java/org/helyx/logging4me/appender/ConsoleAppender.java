@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2007-2009 Alexis Kinsella - $ {website} - <Helyx.org>
+ * Copyright (C) 2007-2009 Alexis Kinsella - http://www.helyx.org - <Helyx.org>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,30 +34,18 @@ public class ConsoleAppender extends AbstractAppender {
 		super();
 	}
 
-	public void onWrite(int level, Logger logger, String message, Date date) {
+	public void onWrite(int level, Logger logger, String message, Date date, String logMessage) {
 		try {			
 			if (level == Logger.FATAL || level == Logger.ERROR) {
-				System.err.println(formatLog(level, logger, message, date));
+				System.err.println(logMessage);
 			}
 			else {
-				System.out.println(formatLog(level, logger, message, date));
+				System.out.println(logMessage);
 			}
 		}
 		catch(Exception e) { 
 			e.printStackTrace(); 
 		}
-	}
-	
-	public void open() throws Exception {
-
-	}
-
-	public void close() throws Exception {
-		
-	}
-
-	public void flush() throws Exception {
-		
 	}
 
 	public static ConsoleAppender getInstance() {

@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2007-2009 Alexis Kinsella - $ {website} - <Helyx.org>
+ * Copyright (C) 2007-2009 Alexis Kinsella - http://www.helyx.org - <Helyx.org>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -216,6 +216,11 @@ public class LoggerManager {
 
 	public static void setDebugMode(boolean debugMode) {
 		LoggerManager.debugMode = debugMode;
+	}
+
+	public static void reset() {
+		removeAllCateogries();
+		closeAllAppenders();
 	}
 
 }

@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2007-2009 Alexis Kinsella - $ {website} - <Helyx.org>
+ * Copyright (C) 2007-2009 Alexis Kinsella - http://www.helyx.org - <Helyx.org>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@ package org.helyx.logging4me.appender;
 import java.util.Date;
 
 import org.helyx.logging4me.Logger;
+import org.helyx.logging4me.layout.Layout;
 
 
 public interface Appender {
@@ -35,6 +36,10 @@ public interface Appender {
 	int getThresholdLevel();
 
 	void setThresholdLevel(int thresholdLevel);
+
+	Layout getLayout();
+	
+	void setLayout(Layout layout);
 	
 	boolean isLoggable(int level);
 	

@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2007-2009 Alexis Kinsella - $ {website} - <Helyx.org>
+ * Copyright (C) 2007-2009 Alexis Kinsella - http://www.helyx.org - <Helyx.org>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -40,10 +40,10 @@ public class FileAppender extends AbstractAppender {
 		this.filePath = filePath;
 	}
 
-	public void onWrite(int level, Logger logger, String message, Date date) {
+	public void onWrite(int level, Logger logger, String message, Date date, String logMessage) {
 		try {
 			if (ps != null) {
-				ps.print(formatLog(level, logger, message, date) + "\r\n");
+				ps.print(logMessage + "\r\n");
 			}
 		}
 		catch(Exception e) { 

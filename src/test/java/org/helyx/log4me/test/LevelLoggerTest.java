@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2007-2009 Alexis Kinsella - $ {website} - <Helyx.org>
+ * Copyright (C) 2007-2009 Alexis Kinsella - http://www.helyx.org - <Helyx.org>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,12 +15,16 @@
  */
 package org.helyx.log4me.test;
 
+import java.util.Vector;
+
 import junit.framework.TestCase;
 
 import org.helyx.logging4me.Logger;
 import org.helyx.logging4me.LoggerFactory;
 import org.helyx.logging4me.LoggerManager;
 import org.helyx.logging4me.appender.ConsoleAppender;
+import org.helyx.logging4me.appender.LogInformation;
+import org.helyx.logging4me.layout.Layout;
 import org.helyx.logging4me.layout.SimpleLayout;
 
 public class LevelLoggerTest extends TestCase {
@@ -31,25 +35,37 @@ public class LevelLoggerTest extends TestCase {
 	
 	protected static final String TEST_CONTENT = "TEST_CONTENT";
 
+
 	
-	public void testLogger() throws InterruptedException {
+	public void testDebugLevel() {
+				
+		LoggerManager.reset();
 		
 		LoggerManager.setThresholdLevel(Logger.DEBUG);
+
+		Layout simpleLayout = new SimpleLayout();
 		
-		LoggerManager.removeAllCateogries();
-		LoggerManager.closeAllAppenders();
+		TestAppender testAppender = new TestAppender();
+		testAppender.setLayout(simpleLayout);
+		LoggerManager.addAppender(testAppender);
 		
 		ConsoleAppender consoleAppender = ConsoleAppender.getInstance();
-		consoleAppender.setLayout(new SimpleLayout());
-		
+		consoleAppender.setLayout(simpleLayout);
 		LoggerManager.addAppender(consoleAppender);
 		
-		LoggerManager.addCategory(TEST_CATEGORY, consoleAppender.getName(), Logger.INFO);
+		LoggerManager.addCategory(TEST_CATEGORY, testAppender.getName(), Logger.DEBUG);
 
 		final Logger logger = LoggerFactory.getLogger(TEST_CATEGORY);		
 		
-		logger.info(TEST_CONTENT);
-
+		logger.debug(TEST_CONTENT);
+		
+		Vector logInformationList = testAppender.getLogInformationList();
+		
+		assertEquals(1, logInformationList.size());
+		
+		LogInformation logInformation = (LogInformation)logInformationList.get(0);
+		
+		assertNotNull(logInformation);
 	}
 
 }
