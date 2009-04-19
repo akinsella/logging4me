@@ -48,7 +48,7 @@ public abstract class AbstractAppender implements Appender {
 		if (layout == null) {
 			return message;
 		}
-		return layout.format(level, logger.getCategory().getName(), message, date);
+		return layout.format(level, logger, message, date);
 	}
 	
 	public int getThresholdLevel() {

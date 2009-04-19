@@ -13,12 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.helyx.logging4me.layout;
+package org.helyx.logging4me.layout.pattern;
 
 import java.util.Date;
 
 import org.helyx.logging4me.Logger;
 import org.helyx.logging4me.format.date.DateFormatUtil;
+import org.helyx.logging4me.layout.Layout;
 
 public class SimpleLayout implements Layout {
 
@@ -33,10 +34,10 @@ public class SimpleLayout implements Layout {
 		this.separator = separator;
 	}
 
-	public String format(int level, String category, String message, Date date) {
+	public String format(int level, Logger logger, String message, Date date) {
 		String dateStr = DateFormatUtil.formatDate(date);
 		
-		StringBuffer sb = new StringBuffer().append("[").append(Logger.getLevelName(level)).append(" - ").append(category).append(" - ").append(dateStr).append("] ").append(message);
+		StringBuffer sb = new StringBuffer().append("[").append(Logger.getLevelName(level)).append(" - ").append(logger.getCategory().getName()).append(" - ").append(dateStr).append("] ").append(message);
 		
 		return sb.toString();
 	}

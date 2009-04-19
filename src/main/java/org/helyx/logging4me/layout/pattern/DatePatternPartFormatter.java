@@ -13,14 +13,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.helyx.logging4me.layout;
+package org.helyx.logging4me.layout.pattern;
 
 import java.util.Date;
 
 import org.helyx.logging4me.Logger;
+import org.helyx.logging4me.format.date.DateFormatter;
+import org.helyx.logging4me.layout.PatternPartFormatter;
 
-public interface Layout {
 
-	public String format(int level, Logger logger, String message, Date date);
+public class DatePatternPartFormatter implements PatternPartFormatter {
+	
+	private DateFormatter dateFormatter;
+	
+	public DatePatternPartFormatter(String dateFormat) {
+		super();
+		this.dateFormatter = new DateFormatter(dateFormat);
+	}
+
+	public String getValue(Logger logger) {
+		return dateFormatter.format(new Date());
+	}
 	
 }

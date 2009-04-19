@@ -18,7 +18,7 @@ package org.helyx.logging4me.appender;
 import java.util.Date;
 
 import org.helyx.logging4me.Logger;
-import org.helyx.logging4me.layout.SimpleLayout;
+import org.helyx.logging4me.layout.pattern.SimpleLayout;
 
 public class ConsoleAppender extends AbstractAppender {
 	

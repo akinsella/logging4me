@@ -38,4 +38,8 @@ public class TestAppender extends AbstractAppender {
 		return logInformationList;
 	}
 
+	public void clearResults() {
+		logInformationList.removeAllElements();
+	}
+
 }
