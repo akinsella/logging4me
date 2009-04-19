@@ -19,13 +19,9 @@
 
   <bannerLeft>
     <name>Logging4ME</name>
-    <src>images/banner-left.png</src>
+    <src>images/logging4me_logo.jpg</src>
     <href>http://logging4me.helyx.org</href>
   </bannerLeft>
-  
-  <bannerRight>
-    <src>images/banner-right.gif</src>
-  </bannerRight>
 
   <body>
     <menu name="Main Menu">
@@ -35,6 +31,7 @@
       <item name="Getting started" href="http://wiki.helyx.org/doku.php?id=logging4me:start"/>
       <item name="Faq" href="http://wiki.helyx.org/doku.php?id=logging4me:faq"/>
       <item name="Wiki" href="http://wiki.helyx.org/doku.php?id=logging4me"/>
+      <item name="License" href="licenses/apache-license-2.0.txt"/>
     </menu>
 
     <menu ref="reports"/>
