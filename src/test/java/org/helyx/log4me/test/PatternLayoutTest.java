@@ -21,7 +21,6 @@ import junit.framework.TestCase;
 
 import org.helyx.logging4me.Logger;
 import org.helyx.logging4me.category.Category;
-import org.helyx.logging4me.format.date.DateFormatter;
 import org.helyx.logging4me.layout.pattern.PatternLayout;
 
 public class PatternLayoutTest extends TestCase {

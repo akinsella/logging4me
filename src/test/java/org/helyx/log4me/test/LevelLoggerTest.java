@@ -25,7 +25,7 @@ import org.helyx.logging4me.LoggerManager;
 import org.helyx.logging4me.appender.ConsoleAppender;
 import org.helyx.logging4me.appender.LogInformation;
 import org.helyx.logging4me.layout.Layout;
-import org.helyx.logging4me.layout.pattern.SimpleLayout;
+import org.helyx.logging4me.layout.SimpleLayout;
 
 public class LevelLoggerTest extends TestCase {
 	

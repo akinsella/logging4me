@@ -13,13 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.helyx.logging4me.layout.pattern;
+package org.helyx.logging4me.layout;
 
 import java.util.Date;
 
 import org.helyx.logging4me.Logger;
 import org.helyx.logging4me.format.date.DateFormatUtil;
-import org.helyx.logging4me.layout.Layout;
 
 public class SimpleLayout implements Layout {
 
