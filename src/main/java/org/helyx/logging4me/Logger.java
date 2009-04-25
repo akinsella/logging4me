@@ -220,5 +220,13 @@ public class Logger {
 	public void trace(String logger, Object[] params) {
 		write(Logger.TRACE, new StringFormat(logger).format(params));
 	}
+	
+	public static Logger getLogger(String categoryName) {
+		return LoggerFactory.getLogger(categoryName);
+	}
+	
+	public static Logger getLogger(Class _class) {
+		return LoggerFactory.getLogger(_class);
+	}
 
 }

@@ -13,24 +13,37 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.helyx.logging4me;
+package org.helyx.logging4me.layout;
 
-public class LoggerFactory {
+import java.util.Date;
+
+import org.helyx.logging4me.Logger;
+
+public class LevelLayout implements Layout {
+
+	private String separator = " - ";
 	
-	private LoggerFactory() {
+	public LevelLayout() {
 		super();
 	}
 	
-	public static Logger getLogger(String category) {
-		Logger logger = LoggerRepository.getLogger(category);
-		
-		return logger;
+	public LevelLayout(String separator) {
+		super();
+		this.separator = separator;
 	}
 
-	public static Logger getLogger(Class _class) {
-		Logger logger = LoggerRepository.getLogger(_class.getName());
+	public String format(int level, Logger logger, String message, Date date) {
+		StringBuffer sb = new StringBuffer().append("[").append(Logger.getLevelName(level)).append("] ").append(message);
 		
-		return logger;
+		return sb.toString();
+	}
+
+	public String getSeparator() {
+		return separator;
+	}
+
+	public void setSeparator(String separator) {
+		this.separator = separator;
 	}
 
 }

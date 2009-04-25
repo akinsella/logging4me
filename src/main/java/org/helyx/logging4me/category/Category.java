@@ -23,15 +23,7 @@ import org.helyx.logging4me.LoggerManager;
 
 public class Category {
 	
-	public String categoryName;
-	
-	public int getLevel() {
-		return level;
-	}
-
-	public void setLevel(int level) {
-		this.level = level;
-	}
+	public String name;
 
 	public int level;
 	
@@ -41,21 +33,36 @@ public class Category {
 	private Vector appenderCacheList = new Vector();
 	
 
-	public Category(String categoryName, String appenderName, int level) {
+	public Category(Class _class, String appenderName, int level) {
 		super();
-		this.categoryName = categoryName;
+		this.name = _class.getName();
 		this.level = level;
 		addAppender(appenderName);
 	}
 
-	public Category(String categoryName, int level) {
+	public Category(String name, String appenderName, int level) {
 		super();
-		this.categoryName = categoryName;
+		this.name = name;
+		this.level = level;
+		addAppender(appenderName);
+	}
+
+	public Category(String name, int level) {
+		super();
+		this.name = name;
 		this.level = level;
 	}
 	
 	public String getName() {
-		return categoryName;
+		return name;
+	}
+	
+	public int getLevel() {
+		return level;
+	}
+
+	public void setLevel(int level) {
+		this.level = level;
 	}
 
 	public void addAppender(String appenderName) {
@@ -132,7 +139,7 @@ public class Category {
 
 	public void clearCacheAppenderResolution() {
 		if (LoggerManager.isDebugMode()) {
-			System.out.println("category[" + categoryName + "].clearCacheAppenderResolution()");
+			System.out.println("category[" + name + "].clearCacheAppenderResolution()");
 		}
 		appenderCacheList.removeAllElements();
 		appenderCacheList = null;
