@@ -15,10 +15,6 @@
  */
 package org.helyx.logging4me;
 
-import java.util.Date;
-import java.util.Enumeration;
-
-import org.helyx.logging4me.appender.Appender;
 import org.helyx.logging4me.category.Category;
 import org.helyx.logging4me.format.text.StringFormat;
 
@@ -85,8 +81,6 @@ public class Logger {
 			object = NULL_STR;
 		}
 
-		Date date = new Date();
-
 		
 		String message = null;
 		if (object instanceof String) {
@@ -101,16 +95,10 @@ public class Logger {
 			message = object.toString();
 		}
 		
-		Enumeration _enum = category.getAppenderCacheList().elements();
-		while (_enum.hasMoreElements()) {
-			Appender appender = (Appender)_enum.nextElement();
-			if (appender != null && category.isLoggable(level)) {
-				appender.write(level, this, message, date);	
-			}			
-		}
+		LoggerEvent loggerEvent = new LoggerEvent(level, this, message);
+		
+		category.flushLoggerEventToAppenders(loggerEvent);
 	}
-
-	
 
 	public void fatal(Object object) {
 		write(Logger.FATAL, object);
@@ -222,11 +210,11 @@ public class Logger {
 	}
 	
 	public static Logger getLogger(String categoryName) {
-		return LoggerFactory.getLogger(categoryName);
+		return LoggerManager.getLogger(categoryName);
 	}
 	
 	public static Logger getLogger(Class _class) {
-		return LoggerFactory.getLogger(_class);
+		return LoggerManager.getLogger(_class);
 	}
 
 }

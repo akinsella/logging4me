@@ -20,6 +20,7 @@ import java.util.Calendar;
 import junit.framework.TestCase;
 
 import org.helyx.logging4me.Logger;
+import org.helyx.logging4me.LoggerEvent;
 import org.helyx.logging4me.category.Category;
 import org.helyx.logging4me.layout.pattern.PatternLayout;
 
@@ -48,7 +49,7 @@ public class PatternLayoutTest extends TestCase {
 		
 		Logger logger = new Logger(new Category(TEST_CATEGORY, Logger.INFO));
 		
-		String patternFormatterResult = patternLayout.format(Logger.INFO, logger, TEST_CONTENT, calendar.getTime());
+		String patternFormatterResult = patternLayout.format(new LoggerEvent(Logger.INFO, logger, TEST_CONTENT, calendar.getTime()));
 		
 		System.out.println("Result: " + patternFormatterResult);
 	}

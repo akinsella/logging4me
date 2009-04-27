@@ -15,11 +15,11 @@
  */
 package org.helyx.logging4me.layout.pattern;
 
-import java.util.Date;
 import java.util.Hashtable;
 import java.util.Vector;
 
 import org.helyx.logging4me.Logger;
+import org.helyx.logging4me.LoggerEvent;
 import org.helyx.logging4me.layout.Layout;
 import org.helyx.logging4me.layout.PatternPartFormatter;
 
@@ -137,14 +137,14 @@ public class PatternLayout implements Layout {
 
 	}
 
-	public String format(int level, Logger logger, String message, Date date) {
-		StringBuffer sb = new StringBuffer(32);
+	public String format(LoggerEvent loggerEvent) {
+		StringBuffer sb = new StringBuffer(64);
 		int length = tokens.length;
 		for (int i = 0 ; i < length ; i++) {
 			Object token = tokens[i]; 
 			if (token instanceof PatternPartFormatter) {
 				PatternPartFormatter patternPartFormatter = (PatternPartFormatter)token;
-				String value = patternPartFormatter.getValue(logger);
+				String value = patternPartFormatter.getValue(loggerEvent.logger);
 				sb.append(value);
 			}
 			else {
@@ -152,7 +152,7 @@ public class PatternLayout implements Layout {
 			}
 		}
 
-		sb.append(message);
+		sb.append(loggerEvent.message);
 
 		String result = sb.toString();
 		

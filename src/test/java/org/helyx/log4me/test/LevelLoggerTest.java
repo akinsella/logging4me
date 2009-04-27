@@ -20,10 +20,9 @@ import java.util.Vector;
 import junit.framework.TestCase;
 
 import org.helyx.logging4me.Logger;
-import org.helyx.logging4me.LoggerFactory;
 import org.helyx.logging4me.LoggerManager;
 import org.helyx.logging4me.appender.ConsoleAppender;
-import org.helyx.logging4me.appender.LogInformation;
+import org.helyx.logging4me.category.Category;
 import org.helyx.logging4me.layout.Layout;
 import org.helyx.logging4me.layout.SimpleLayout;
 
@@ -39,7 +38,7 @@ public class LevelLoggerTest extends TestCase {
 	public void testTraceLevel() {
 		TestAppender testAppender = prepareLoggingSystem(Logger.TRACE, TEST_CATEGORY, Logger.TRACE, Logger.TRACE);
 		
-		Logger logger = LoggerFactory.getLogger(TEST_CATEGORY);		
+		Logger logger = Logger.getLogger(TEST_CATEGORY);		
 		logger.trace(TEST_CONTENT);
 		
 		assertLoggerInformation(testAppender);	
@@ -48,7 +47,7 @@ public class LevelLoggerTest extends TestCase {
 	public void testDebugLevel() {
 		TestAppender testAppender = prepareLoggingSystem(Logger.DEBUG, TEST_CATEGORY, Logger.DEBUG, Logger.DEBUG);
 		
-		Logger logger = LoggerFactory.getLogger(TEST_CATEGORY);
+		Logger logger = Logger.getLogger(TEST_CATEGORY);
 		logger.debug(TEST_CONTENT);
 		assertLoggerInformation(testAppender);
 
@@ -61,7 +60,7 @@ public class LevelLoggerTest extends TestCase {
 	public void testInfoLevel() {
 		TestAppender testAppender = prepareLoggingSystem(Logger.INFO, TEST_CATEGORY, Logger.INFO, Logger.INFO);
 		
-		Logger logger = LoggerFactory.getLogger(TEST_CATEGORY);
+		Logger logger = Logger.getLogger(TEST_CATEGORY);
 		logger.info(TEST_CONTENT);
 		assertLoggerInformation(testAppender);
 
@@ -74,7 +73,7 @@ public class LevelLoggerTest extends TestCase {
 	public void testWarnLevel() {
 		TestAppender testAppender = prepareLoggingSystem(Logger.WARN, TEST_CATEGORY, Logger.WARN, Logger.WARN);
 		
-		Logger logger = LoggerFactory.getLogger(TEST_CATEGORY);
+		Logger logger = Logger.getLogger(TEST_CATEGORY);
 		logger.warn(TEST_CONTENT);
 		assertLoggerInformation(testAppender);
 
@@ -87,7 +86,7 @@ public class LevelLoggerTest extends TestCase {
 	public void testErrorLevel() {
 		TestAppender testAppender = prepareLoggingSystem(Logger.ERROR, TEST_CATEGORY, Logger.ERROR, Logger.ERROR);
 		
-		Logger logger = LoggerFactory.getLogger(TEST_CATEGORY);
+		Logger logger = Logger.getLogger(TEST_CATEGORY);
 		logger.error(TEST_CONTENT);
 		assertLoggerInformation(testAppender);
 
@@ -100,7 +99,7 @@ public class LevelLoggerTest extends TestCase {
 	public void testFatalLevel() {
 		TestAppender testAppender = prepareLoggingSystem(Logger.FATAL, TEST_CATEGORY, Logger.FATAL, Logger.FATAL);
 		
-		Logger logger = LoggerFactory.getLogger(TEST_CATEGORY);
+		Logger logger = Logger.getLogger(TEST_CATEGORY);
 		logger.fatal(TEST_CONTENT);		
 		assertLoggerInformation(testAppender);
 
@@ -111,8 +110,8 @@ public class LevelLoggerTest extends TestCase {
 	}
 	
 	private TestAppender prepareLoggingSystem(int loggerManagerThreasholdLevel, String categoryName, int testAppenderThresholdLevel, int categoryLevel) {
-		LoggerManager.reset();
-		
+		LoggerManager.resetAll();
+				
 		LoggerManager.setThresholdLevel(loggerManagerThreasholdLevel);
 
 		Layout simpleLayout = new SimpleLayout();
@@ -120,14 +119,15 @@ public class LevelLoggerTest extends TestCase {
 		TestAppender testAppender = new TestAppender();
 		testAppender.setLayout(simpleLayout);
 		testAppender.setThresholdLevel(testAppenderThresholdLevel);
-		LoggerManager.addAppender(testAppender);
+		LoggerManager.registerAppender(testAppender);
+		LoggerManager.getRootCategory().addAppender(testAppender);
 		
-		ConsoleAppender consoleAppender = ConsoleAppender.getInstance();
+		ConsoleAppender consoleAppender = new ConsoleAppender();
 		consoleAppender.setLayout(simpleLayout);
 		consoleAppender.setThresholdLevel(Logger.TRACE);
-		LoggerManager.addAppender(consoleAppender);
-		
-		LoggerManager.addCategory(categoryName, testAppender.getName(), categoryLevel);
+		LoggerManager.getRootCategory().addAppender(consoleAppender);
+		LoggerManager.registerAppender(consoleAppender);		
+		LoggerManager.addCategory(categoryName, categoryLevel);
 		
 		return testAppender;
 	}

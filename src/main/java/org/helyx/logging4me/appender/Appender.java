@@ -15,9 +15,7 @@
  */
 package org.helyx.logging4me.appender;
 
-import java.util.Date;
-
-import org.helyx.logging4me.Logger;
+import org.helyx.logging4me.LoggerEvent;
 import org.helyx.logging4me.layout.Layout;
 
 
@@ -25,7 +23,7 @@ public interface Appender {
 	
 	String getName();
 
-	void write(int level, Logger logger, String message, Date date);
+	void write(LoggerEvent loggerEvent);
 
 	void open() throws Exception;
 

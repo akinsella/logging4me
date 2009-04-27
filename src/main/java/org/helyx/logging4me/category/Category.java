@@ -19,32 +19,39 @@ import java.util.Enumeration;
 import java.util.Vector;
 
 import org.helyx.logging4me.Logger;
-import org.helyx.logging4me.LoggerManager;
+import org.helyx.logging4me.LoggerEvent;
+import org.helyx.logging4me.appender.Appender;
 
 public class Category {
 	
-	public String name;
+	private String name;
 
-	public int level;
-	
-	private boolean wildCard = true;
-	
-	private Vector appenderNameList = new Vector();
-	private Vector appenderCacheList = new Vector();
-	
+	private int level;
 
-	public Category(Class _class, String appenderName, int level) {
+	protected Vector appenderList;
+	
+	private Category parent;
+	
+	private boolean additive = true;
+
+	public Category(Class _class, int level, boolean additive) {
 		super();
 		this.name = _class.getName();
 		this.level = level;
-		addAppender(appenderName);
+		this.additive = additive;
 	}
 
-	public Category(String name, String appenderName, int level) {
+	public Category(String name, int level, boolean additive) {
 		super();
 		this.name = name;
 		this.level = level;
-		addAppender(appenderName);
+		this.additive = additive;
+	}
+
+	public Category(Class _class, int level) {
+		super();
+		this.name = _class.getName();
+		this.level = level;
 	}
 
 	public Category(String name, int level) {
@@ -64,45 +71,36 @@ public class Category {
 	public void setLevel(int level) {
 		this.level = level;
 	}
+	
+	public boolean isAdditive() {
+		return additive;
+	}
 
-	public void addAppender(String appenderName) {
-		this.appenderNameList.addElement(appenderName);
-		wildCard = false;
-		clearCacheAppenderResolution();
+	public void setAdditive(boolean additive) {
+		this.additive = additive;
+	}
+
+	public Category getParent() {
+		return parent;
+	}
+
+	public void setParent(Category parent) {
+		this.parent = parent;
+	}
+
+	public void addAppender(Appender appender) {
+		if (appenderList == null) {
+			appenderList = new Vector();
+		}
+		appenderList.addElement(appender);
 	}
 	
-	public void removeAppender(String appenderName) {
-		this.appenderNameList.removeElement(appenderName);
-		if (appenderNameList.isEmpty()) {
-			wildCard = true;
-		}
-		clearCacheAppenderResolution();
+	public void removeAppender(Appender appender) {
+		appenderList.removeElement(appender);
 	}
 	
 	public void removeAllAppenders() {
-		this.appenderNameList.removeAllElements();
-		wildCard = true;
-		clearCacheAppenderResolution();
-	}
-
-	public Vector getAppenderNameList() {
-		return appenderNameList;
-	}
-
-	public Vector getAppenderCacheList() {
-		if (wildCard) {
-			return LoggerManager.getAppenderCacheList();
-		}
-		if (appenderCacheList == null) {
-			appenderCacheList = new Vector();
-			Enumeration _enum = appenderNameList.elements();
-			while(_enum.hasMoreElements()) {
-				String appenderName = (String)_enum.nextElement();
-				appenderCacheList.addElement(LoggerManager.getAppender(appenderName));
-			}
-		}
-		
-		return appenderCacheList;
+		appenderList.clear();
 	}
 	
 	public boolean isLoggable(int level) {
@@ -133,16 +131,27 @@ public class Category {
 		return Logger.TRACE >= level;
 	}
 
-	public boolean isWildCard() {
-		return wildCard;
-	}
-
-	public void clearCacheAppenderResolution() {
-		if (LoggerManager.isDebugMode()) {
-			System.out.println("category[" + name + "].clearCacheAppenderResolution()");
+	public void flushLoggerEventToAppenders(LoggerEvent loggerEvent) {
+		
+		if (appenderList != null) {
+			Enumeration _enum = appenderList.elements();
+			while (_enum.hasMoreElements()) {
+				Appender appender = (Appender)_enum.nextElement();
+				appender.write(loggerEvent);
+			}
 		}
-		appenderCacheList.removeAllElements();
-		appenderCacheList = null;
+		
+		if (additive && parent != null) {
+			parent.flushLoggerEventToAppenders(loggerEvent);
+		}
+	}
+	
+	public void finalize() {
+		parent = null;
+		if (appenderList != null) {
+			appenderList.removeAllElements();
+		}
+		appenderList = null;
 	}
 
 }

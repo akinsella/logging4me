@@ -15,9 +15,8 @@
  */
 package org.helyx.logging4me.layout;
 
-import java.util.Date;
-
 import org.helyx.logging4me.Logger;
+import org.helyx.logging4me.LoggerEvent;
 import org.helyx.logging4me.format.date.DateFormatUtil;
 
 public class SimpleLayout implements Layout {
@@ -33,10 +32,16 @@ public class SimpleLayout implements Layout {
 		this.separator = separator;
 	}
 
-	public String format(int level, Logger logger, String message, Date date) {
-		String dateStr = DateFormatUtil.formatDate(date);
+	public String format(LoggerEvent loggerEvent) {
+		String dateStr = DateFormatUtil.formatDate(loggerEvent.date);
 		
-		StringBuffer sb = new StringBuffer().append("[").append(Logger.getLevelName(level)).append(" - ").append(logger.getCategory().getName()).append(" - ").append(dateStr).append("] ").append(message);
+		StringBuffer sb = new StringBuffer()
+			.append("[")
+				.append(Logger.getLevelName(loggerEvent.level))
+				.append(" - ").append(loggerEvent.logger.getCategory().getName())
+				.append(" - ").append(dateStr)
+			.append("] ")
+			.append(loggerEvent.message);
 		
 		return sb.toString();
 	}

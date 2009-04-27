@@ -20,14 +20,13 @@ import java.util.Hashtable;
 import java.util.Vector;
 
 import org.helyx.logging4me.appender.Appender;
-import org.helyx.logging4me.appender.ConsoleAppender;
-import org.helyx.logging4me.appender.FileAppender;
 import org.helyx.logging4me.category.Category;
 
 public class LoggerManager {
 	
-	private static Hashtable appenderMap = new Hashtable();
-	private static Vector appenderCacheList = null;
+	private static final String CAT = "LOGGER_MANAGER";
+	
+	private static Vector appenderList = new Vector();
 	
 	private static Hashtable categoryMap = new Hashtable();
 	
@@ -35,94 +34,28 @@ public class LoggerManager {
 	
 	private static boolean debugMode = false;
 	
-	static {
-		Appender consoleAppender = ConsoleAppender.getInstance();
-		addAppender(consoleAppender);
-	}
+	private static Category rootCategory;
+	
+	
+	private static Hashtable loggerMap = new Hashtable();
 	
 	private LoggerManager() {
 		super();
+		initialize();
 	}
 	
-	public static void addAppender(Appender appender) {
-		if (!appenderMap.contains(appender)) {
-			appenderMap.put(appender.getName(), appender);
-			appenderCacheList = null;
-		}
-		else {
-			throw new LoggerException("Appender already added: '" + appender.getName() + "'");
-		}
+	private static void initialize() {
+		rootCategory = new Category("ROOT", Logger.DEBUG);
+		categoryMap.put(rootCategory.getName(), rootCategory);
 	}
 
-	public static void addAppenderAndOpen(FileAppender appender) throws Exception {
-		appender.open();
-		addAppender(appender);
-	}
-
-	public static boolean existAppender(Appender appender) {
-		return appenderMap.containsKey(appender.getName());
-	}
-
-	public static void removeAppender(Appender appender) {
-		appenderMap.remove(appender);
-		appenderCacheList = null;
-	}
-
-	public static void removeAppenderAndClose(Appender appender) {
-		try {
-			try {
-				appender.flush();
-			}
-			finally {
-				try {
-					appender.close();
-				}
-				finally {
-					removeAppender(appender);
-				}
-			}
-		}
-		catch(Throwable t) {
-			t.printStackTrace();
-		}
-	}
-
-	public static void flushAppenders() {
-		Enumeration _enum = appenderMap.elements();
-		
-		while (_enum.hasMoreElements()) {			
-			try {
-				Appender appender = (Appender)_enum.nextElement();
-				appender.flush();
-			}
-			catch(Throwable t) {
-				t.printStackTrace();
-			}
-		}
-	}
-
-	public static void closeAllAppenders() {
-		Enumeration _enum = appenderMap.elements();
-		while (_enum.hasMoreElements()) {			
-			Appender appender = (Appender)_enum.nextElement();
-			try {
-				try {
-					appender.flush();
-				}
-				finally {
-					appender.close();
-				}
-			}
-			catch(Throwable t) {
-				t.printStackTrace();
-			}
+	public static void removeAndFinalizeAllCateogries() {
+		Enumeration _enum = categoryMap.elements();
+		while(_enum.hasMoreElements()) {
+			Category category = (Category)_enum.nextElement();
+			category.finalize();
 		}
 		
-		appenderMap.clear();
-		appenderCacheList = null;
-	}
-	
-	public static void removeAllCateogries() {
 		categoryMap.clear();
 	}
 
@@ -133,14 +66,60 @@ public class LoggerManager {
 	public static int getThresholdLevel() {
 		return thresholdLevel;
 	}
-
-	public static void addCategory(String categoryName, String appenderName, int level) {
-		Category category = new Category(categoryName, appenderName, level);
-		categoryMap.put(categoryName, category);			
+	
+	public static void registerAppender(Appender appender) {
+		if (!appenderList.contains(appender)) {
+			appenderList.addElement(appender);
+		}
 	}
 
-	public static void addCategory(String categoryName, int level) {
-		addCategory(categoryName, level);
+	
+	public static Category addCategory(String categoryName, int level) {
+		if (categoryMap.contains(categoryName)) {
+			Category category = (Category)categoryMap.get(categoryName);
+			category.setLevel(level);
+			return category;
+		}
+		
+		Category category = registerAndConfigureCategory(categoryName, level);
+		return category;
+	}
+
+	public static Category addCategory(String categoryName) {
+		if (categoryMap.contains(categoryName)) {
+			Category category = (Category)categoryMap.get(categoryName);
+			return category;
+		}
+		
+		Category category = registerAndConfigureCategory(categoryName, Logger.TRACE);
+		return category;
+	}
+	
+	private static Category registerAndConfigureCategory(String categoryName, int level) {
+		Category category = new Category(categoryName, level);
+		categoryMap.put(categoryName, category);		
+		configureParentCategory(category);
+		return category;
+	}
+
+	private static void configureParentCategory(Category category) {
+		String categoryName = category.getName();
+		int categoryNameLength = categoryName.length();
+		int pos = categoryName.lastIndexOf('.', categoryNameLength - 1);
+		if (pos >= 0) {
+			String parentCategoryName = categoryName.substring(0, pos);
+			SystemLogger.debug(CAT, "Parent Category Name : " + parentCategoryName);
+			
+			Category parentCategory = getCategory(parentCategoryName);
+			if (parentCategory != null) {
+				return;
+			}
+			parentCategory = addCategory(parentCategoryName);
+			category.setParent(parentCategory);
+		}
+		else {
+			category.setParent(rootCategory);
+		}
 	}
 
 	public static Category getCategory(String categoryName) {
@@ -148,9 +127,6 @@ public class LoggerManager {
 		
 		return category;
 	}
-	
-	
-	
 	
 	public static boolean isLoggable(int level) {
 		return level >= thresholdLevel;
@@ -180,36 +156,6 @@ public class LoggerManager {
 		return Logger.TRACE >= thresholdLevel;
 	}
 
-	public static Appender getAppender(String appenderName) {
-		return (Appender)appenderMap.get(appenderName);
-	}
-
-	public static void clearCacheAppenderResolution() {
-		if (debugMode) {
-			System.out.println("LoggerManager.clearCacheAppenderResolution()");
-		}
-		Enumeration _enum = appenderMap.elements();
-		while(_enum.hasMoreElements()) {
-			Category category = (Category)_enum.nextElement();
-			category.clearCacheAppenderResolution();
-		}
-	}
-
-	public static Vector getAppenderCacheList() {
-		if (appenderCacheList != null) {
-			return appenderCacheList;
-		}
-		Vector tmpAppenderCacheList = new Vector();
-		Enumeration _enum = appenderMap.elements();
-		while(_enum.hasMoreElements()) {
-			String appenderName = (String)_enum.nextElement();
-			tmpAppenderCacheList.addElement(LoggerManager.getAppender(appenderName));
-		}
-		appenderCacheList = tmpAppenderCacheList;
-		
-		return appenderCacheList;
-	}
-
 	public static boolean isDebugMode() {
 		return debugMode;
 	}
@@ -218,9 +164,66 @@ public class LoggerManager {
 		LoggerManager.debugMode = debugMode;
 	}
 
-	public static void reset() {
-		removeAllCateogries();
-		closeAllAppenders();
+	public static void resetLoggers() {
+		loggerMap.clear();
+	}
+
+	public static void reset(boolean closeRegisteredAppenders) {
+		
+		removeAndFinalizeAllCateogries();
+		if (closeRegisteredAppenders) {
+			closeAllRegisteredAppenders();
+		}
+		removeAllRegisteredAppenders();
+		initialize();
+	}
+
+	private static void removeAllRegisteredAppenders() {
+		appenderList.removeAllElements();
+	}
+
+	private static void closeAllRegisteredAppenders() {
+		Enumeration _enum = appenderList.elements();
+		while(_enum.hasMoreElements()) {
+			Appender appender = (Appender)_enum.nextElement();
+			try {
+				appender.close();
+			}
+			catch (Exception e) {
+				SystemLogger.warn(CAT, e.getMessage(), e);
+			}
+		}
+		
+		appenderList.removeAllElements();
+	}
+
+	public static Category getRootCategory() {
+		return rootCategory;
+	}
+
+
+	public static Logger getLogger(Class _class) {
+		return getLogger(_class.getName());
+	}
+	
+	public static Logger getLogger(String categoryName) {
+
+		Logger logger = null;
+		if (loggerMap.containsKey(categoryName)) {
+			logger = (Logger)loggerMap.get(categoryName);
+		}
+		else {
+			Category category = addCategory(categoryName);
+			logger = new Logger(category);
+			loggerMap.put(categoryName, logger);
+		}
+		
+		return logger;
+	}
+
+	public static void resetAll() {
+		resetLoggers();
+		reset(true);
 	}
 
 }

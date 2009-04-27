@@ -15,28 +15,20 @@
  */
 package org.helyx.logging4me.appender;
 
-import java.util.Date;
-
 import org.helyx.logging4me.Logger;
-import org.helyx.logging4me.layout.SimpleLayout;
+import org.helyx.logging4me.LoggerEvent;
 
 public class ConsoleAppender extends AbstractAppender {
 	
-	private static ConsoleAppender consoleLogWriter;
-	
 	public static String CONSOLE_APPENDER_NAME = "CONSOLE";
-	
-	static {
-		consoleLogWriter = new ConsoleAppender();
-	}
 
-	private ConsoleAppender() {
+	public ConsoleAppender() {
 		super();
 	}
 
-	public void onWrite(int level, Logger logger, String message, Date date, String logMessage) {
+	public void onWrite(LoggerEvent loggerEvent, String logMessage) {
 		try {			
-			if (level == Logger.FATAL || level == Logger.ERROR) {
+			if (loggerEvent.level == Logger.FATAL || loggerEvent.level == Logger.ERROR) {
 				System.err.println(logMessage);
 			}
 			else {
@@ -46,10 +38,6 @@ public class ConsoleAppender extends AbstractAppender {
 		catch(Exception e) { 
 			e.printStackTrace(); 
 		}
-	}
-
-	public static ConsoleAppender getInstance() {
-		return consoleLogWriter;
 	}
 
 	public String getName() {

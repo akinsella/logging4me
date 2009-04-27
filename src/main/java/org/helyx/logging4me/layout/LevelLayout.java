@@ -15,9 +15,8 @@
  */
 package org.helyx.logging4me.layout;
 
-import java.util.Date;
-
 import org.helyx.logging4me.Logger;
+import org.helyx.logging4me.LoggerEvent;
 
 public class LevelLayout implements Layout {
 
@@ -32,8 +31,8 @@ public class LevelLayout implements Layout {
 		this.separator = separator;
 	}
 
-	public String format(int level, Logger logger, String message, Date date) {
-		StringBuffer sb = new StringBuffer().append("[").append(Logger.getLevelName(level)).append("] ").append(message);
+	public String format(LoggerEvent loggerEvent) {
+		StringBuffer sb = new StringBuffer().append("[").append(Logger.getLevelName(loggerEvent.level)).append("] ").append(loggerEvent.message);
 		
 		return sb.toString();
 	}

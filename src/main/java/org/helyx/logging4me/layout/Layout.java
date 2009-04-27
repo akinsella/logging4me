@@ -15,12 +15,10 @@
  */
 package org.helyx.logging4me.layout;
 
-import java.util.Date;
-
-import org.helyx.logging4me.Logger;
+import org.helyx.logging4me.LoggerEvent;
 
 public interface Layout {
 
-	public String format(int level, Logger logger, String message, Date date);
+	public String format(LoggerEvent loggerEvent);
 	
 }

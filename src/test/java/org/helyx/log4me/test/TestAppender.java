@@ -1,11 +1,9 @@
 package org.helyx.log4me.test;
 
-import java.util.Date;
 import java.util.Vector;
 
-import org.helyx.logging4me.Logger;
+import org.helyx.logging4me.LoggerEvent;
 import org.helyx.logging4me.appender.AbstractAppender;
-import org.helyx.logging4me.appender.LogInformation;
 
 public class TestAppender extends AbstractAppender {
 
@@ -22,8 +20,8 @@ public class TestAppender extends AbstractAppender {
 		this.name = name;
 	}
 
-	public void onWrite(int level, Logger logger, String message, Date date, String logMessage) {
-		logInformationList.addElement(new LogInformation(level, logger, message, date, logMessage));
+	public void onWrite(LoggerEvent loggerEvent, String logMessage) {
+		logInformationList.addElement(new LogInformation(loggerEvent, logMessage));
 	}
 	
 	public String getName() {
