@@ -29,8 +29,8 @@ public class DateFormatterTest extends TestCase {
 		Calendar calendar = Calendar.getInstance();
 		calendar.set(Calendar.YEAR, 2009);
 		calendar.set(Calendar.MONTH, 4);
-		calendar.set(Calendar.DATE, 18);
-		calendar.set(Calendar.HOUR, 23);
+		calendar.set(Calendar.DAY_OF_MONTH, 18);
+		calendar.set(Calendar.HOUR_OF_DAY, 23);
 		calendar.set(Calendar.MINUTE, 47);
 		calendar.set(Calendar.SECOND, 56);
 		calendar.set(Calendar.MILLISECOND, 9);
@@ -46,8 +46,8 @@ public class DateFormatterTest extends TestCase {
 		Calendar calendar = Calendar.getInstance();
 		calendar.set(Calendar.YEAR, 2009);
 		calendar.set(Calendar.MONTH, 4);
-		calendar.set(Calendar.DATE, 18);
-		calendar.set(Calendar.HOUR, 14);
+		calendar.set(Calendar.DAY_OF_MONTH, 18);
+		calendar.set(Calendar.HOUR_OF_DAY, 14);
 		calendar.set(Calendar.MINUTE, 07);
 		calendar.set(Calendar.SECOND, 06);
 		calendar.set(Calendar.MILLISECOND, 9);

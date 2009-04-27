@@ -102,7 +102,7 @@ public class DateFormatter {
 		tokenMap.put(DD, new DatePartFormatter() {
 
 			public String getValue(Calendar calendar) {
-				int month = calendar.get(Calendar.DATE);
+				int month = calendar.get(Calendar.DAY_OF_MONTH);
 
 				return NumberFormatUtil.format(month, 2);
 			}
@@ -112,7 +112,7 @@ public class DateFormatter {
 		tokenMap.put(D, new DatePartFormatter() {
 
 			public String getValue(Calendar calendar) {
-				int day = calendar.get(Calendar.DATE);
+				int day = calendar.get(Calendar.DAY_OF_MONTH);
 
 				return String.valueOf(day);
 			}

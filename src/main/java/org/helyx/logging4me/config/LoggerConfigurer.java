@@ -13,22 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.helyx.log4me.test;
+package org.helyx.logging4me.config;
 
-import org.helyx.logging4me.LoggerEvent;
+public interface LoggerConfigurer {
 
-public class LogInformation {
-
-	public final LoggerEvent loggerEvent;
-	
-	public final String resultMessage;
-
-	public LogInformation(LoggerEvent loggerEvent, String resultMessage) {
-		super();
-		this.loggerEvent = loggerEvent;
-		this.resultMessage = resultMessage;
-	}
-
-
+	void configure();
 	
 }

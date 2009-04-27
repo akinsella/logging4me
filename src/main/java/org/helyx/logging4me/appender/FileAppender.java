@@ -20,8 +20,8 @@ import java.io.PrintStream;
 import javax.microedition.io.Connector;
 import javax.microedition.io.file.FileConnection;
 
-import org.helyx.logging4me.SystemLogger;
 import org.helyx.logging4me.LoggerEvent;
+import org.helyx.logging4me.system.SystemLogger;
 import org.helyx.logging4me.util.FileUtil;
 
 public class FileAppender extends AbstractAppender {

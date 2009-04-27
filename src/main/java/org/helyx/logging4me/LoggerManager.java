@@ -21,6 +21,7 @@ import java.util.Vector;
 
 import org.helyx.logging4me.appender.Appender;
 import org.helyx.logging4me.category.Category;
+import org.helyx.logging4me.system.SystemLogger;
 
 public class LoggerManager {
 	
