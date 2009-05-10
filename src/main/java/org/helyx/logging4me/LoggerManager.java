@@ -76,6 +76,18 @@ public class LoggerManager {
 			appenderList.addElement(appender);
 		}
 	}
+	
+	public static void unregisterAppender(Appender appender) {
+		if (appenderList.contains(appender)) {
+			appenderList.removeElement(appender);
+		}
+		Enumeration _enum = categoryMap.elements();
+		
+		while (_enum.hasMoreElements()) {
+			Category category = (Category)_enum.nextElement();
+			category.removeAppender(appender);
+		}
+	}
 
 	
 	public static Category addCategory(String categoryName, int level) {
