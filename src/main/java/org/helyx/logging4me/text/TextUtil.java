@@ -15,7 +15,6 @@
  */
 package org.helyx.logging4me.text;
 
-import java.util.Vector;
 
 public class TextUtil {
 
@@ -24,17 +23,14 @@ public class TextUtil {
 		
 		StringBuffer sb = new StringBuffer( length );
 
-		for (int i=0 ; i < length ; i++) {
+		for (int i = 0 ; i < length ; i++) {
 	
 			char c = haystack.charAt(i);
-			switch( c )
-			{
-				case '.':
-					sb.append( '/' );
-					break;
-		
-				default:
-					sb.append( c );
+			if (c == needle) {
+				sb.append( replacement );
+			}
+			else {
+				sb.append( c );
 			}
 		}
 
@@ -42,9 +38,18 @@ public class TextUtil {
 	}
 	
 	public static String replaceAll(String haystack, String needle, String replacement) {
+		
+		if (needle == null) {
+			return haystack;
+		}
+		
+		if (replacement == null) {
+			replacement = "";
+		}
+		
 		int needleLength = needle.length();
 		
-		if (needle == null || needleLength == 0) {
+		if (needleLength == 0) {
 			return haystack;
 		}
 
