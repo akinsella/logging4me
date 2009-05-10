@@ -33,7 +33,7 @@ public class SimpleLayout implements Layout {
 	}
 
 	public String format(LoggerEvent loggerEvent) {
-		String dateStr = DateFormatUtil.formatDate(loggerEvent.date);
+		String dateStr = DateFormatUtil.formatDatetimeWithMilliSeconds(loggerEvent.date);
 		
 		StringBuffer sb = new StringBuffer()
 			.append("[")

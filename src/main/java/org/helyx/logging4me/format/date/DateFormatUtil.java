@@ -26,7 +26,19 @@ public class DateFormatUtil {
 		super();
 	}
 
+	public static String formatDatetimeWithMilliSeconds(Date date) {
+		return formatDatetime(date, "/", ":", ", ", true, ".");
+	}
+
+	public static String formatDatetime(Date date) {
+		return formatDatetime(date, "/", ":", ", ", false, null);
+	}
+	
 	public static String formatDatetime(Date date, String dateSeparator, String timeSeparator, String dateTimeSeparator) {
+		return formatDatetime(date, dateSeparator, timeSeparator, dateTimeSeparator, false, null);
+	}
+	
+	public static String formatDatetime(Date date, String dateSeparator, String timeSeparator, String dateTimeSeparator, boolean showMilliSeconds, String milliSecondsSeparator) {
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(date);
 		String year = NumberFormatUtil.format(calendar.get(Calendar.YEAR), 4);
@@ -35,8 +47,16 @@ public class DateFormatUtil {
 		String hour = NumberFormatUtil.format(calendar.get(Calendar.HOUR_OF_DAY), 2);
 		String minute = NumberFormatUtil.format(calendar.get(Calendar.MINUTE), 2);
 		String second = NumberFormatUtil.format(calendar.get(Calendar.SECOND), 2);
+			
+		String result = day + dateSeparator + month + dateSeparator + year + dateTimeSeparator + hour + timeSeparator + minute + timeSeparator + second;
 		
-		return day + dateSeparator + month + dateSeparator + year + dateTimeSeparator + hour + timeSeparator + minute + timeSeparator + second;
+		if (showMilliSeconds) {
+			String milliSeconds  = NumberFormatUtil.format(calendar.get(Calendar.MILLISECOND), 3);
+
+			result += milliSecondsSeparator + milliSeconds;
+		}
+		
+		return result;
 	}
 
 	public static String formatDate(Date date) {
