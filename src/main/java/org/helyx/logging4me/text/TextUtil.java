@@ -17,6 +17,10 @@ package org.helyx.logging4me.text;
 
 
 public class TextUtil {
+	
+	private TextUtil()  {
+		super();
+	}
 
 	public static String replaceAll(String haystack, char needle, char replacement) {
 		int length = haystack.length();
