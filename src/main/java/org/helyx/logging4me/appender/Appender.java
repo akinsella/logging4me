@@ -52,5 +52,7 @@ public interface Appender {
 	boolean isDebugEnabled();
 	
 	boolean isTraceEnabled();
+
+	boolean isOpened();
 	
 }

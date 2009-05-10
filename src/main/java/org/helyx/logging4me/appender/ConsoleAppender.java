@@ -44,4 +44,8 @@ public class ConsoleAppender extends AbstractAppender {
 		return CONSOLE_APPENDER_NAME;
 	}
 
+	public boolean isOpened() {
+		return true;
+	}
+
 }

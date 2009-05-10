@@ -78,6 +78,7 @@ public class FileAppender extends AbstractAppender {
 				ps.close();
 			}
 			catch(Throwable t) {
+				ps = null;
 				t.printStackTrace();
 			}
 		}
@@ -86,6 +87,7 @@ public class FileAppender extends AbstractAppender {
 				fc.close();
 			}
 			catch(Throwable t) {
+				fc = null;
 				t.printStackTrace();
 			}
 		}
@@ -99,6 +101,10 @@ public class FileAppender extends AbstractAppender {
 
 	public String getName() {
 		return FILE_APPENDER_NAME;
+	}
+
+	public boolean isOpened() {
+		return ps != null;
 	}
 
 }

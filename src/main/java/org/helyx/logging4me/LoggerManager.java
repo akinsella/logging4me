@@ -70,6 +70,9 @@ public class LoggerManager {
 	
 	public static void registerAppender(Appender appender) {
 		if (!appenderList.contains(appender)) {
+			if (appender.isOpened()) {
+				SystemLogger.warn(CAT, "Appender[" + appender.getName() + "] is not open!");
+			}
 			appenderList.addElement(appender);
 		}
 	}

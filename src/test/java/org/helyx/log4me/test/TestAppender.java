@@ -55,4 +55,8 @@ public class TestAppender extends AbstractAppender {
 		logInformationList.removeAllElements();
 	}
 
+	public boolean isOpened() {
+		return true;
+	}
+
 }
