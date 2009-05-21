@@ -138,7 +138,7 @@ public class LevelLoggerTest extends TestCase {
 		
 		assertEquals(1, logInformationList.size());
 		
-		LogInformation logInformation = (LogInformation)logInformationList.get(0);
+		LogInformation logInformation = (LogInformation)logInformationList.elementAt(0);
 		
 		assertNotNull(logInformation);
 
