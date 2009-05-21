@@ -100,7 +100,7 @@ public class Category {
 	}
 	
 	public void removeAllAppenders() {
-		appenderList.clear();
+		appenderList.removeAllElements();
 	}
 	
 	public boolean isLoggable(int level) {
