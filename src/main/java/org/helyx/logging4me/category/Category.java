@@ -146,7 +146,7 @@ public class Category {
 		}
 	}
 	
-	public void finalize() {
+	public void dispose() {
 		parent = null;
 		if (appenderList != null) {
 			appenderList.removeAllElements();
