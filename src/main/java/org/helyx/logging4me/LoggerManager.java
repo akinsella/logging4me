@@ -40,9 +40,12 @@ public class LoggerManager {
 	
 	private static Hashtable loggerMap = new Hashtable();
 	
+	static {
+		initialize();
+	}
+	
 	private LoggerManager() {
 		super();
-		initialize();
 	}
 	
 	private static void initialize() {
@@ -54,7 +57,7 @@ public class LoggerManager {
 		Enumeration _enum = categoryMap.elements();
 		while(_enum.hasMoreElements()) {
 			Category category = (Category)_enum.nextElement();
-			category.finalize();
+			category.dispose();
 		}
 		
 		categoryMap.clear();
