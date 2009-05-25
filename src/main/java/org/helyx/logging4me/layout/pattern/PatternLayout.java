@@ -27,7 +27,7 @@ public class PatternLayout implements Layout {
 
 	private String separator = " - ";
 	
-	private static final String DEFAULT_PATTERN = "%t | %c";
+	public static final String DEFAULT_PATTERN = "| %T | %L | %C | %D{yyyy/MM/dd, HH:mm:ss.ZZ} | ";
 	
 	private String pattern = DEFAULT_PATTERN;
 
