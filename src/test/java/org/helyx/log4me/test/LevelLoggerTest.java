@@ -22,7 +22,6 @@ import junit.framework.TestCase;
 import org.helyx.logging4me.Logger;
 import org.helyx.logging4me.LoggerManager;
 import org.helyx.logging4me.appender.ConsoleAppender;
-import org.helyx.logging4me.category.Category;
 import org.helyx.logging4me.layout.Layout;
 import org.helyx.logging4me.layout.SimpleLayout;
 
