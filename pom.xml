@@ -109,6 +109,8 @@
 	                    <include>**/test/**</include>
 	                </includes>
 	                <excludes>
+	                    <exclude>LICENSE.txt</exclude>
+	                    <exclude>src/license/**</exclude>
 	                    <exclude>target/**</exclude>
 	                    <exclude>.svn/**</exclude>
 	                </excludes>

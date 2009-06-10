@@ -21,8 +21,7 @@
 		<format>zip</format>
 		<format>tar.gz</format>
 	</formats>
-	<baseDirectory>helyx-logging4me-${project.version}
-	</baseDirectory>
+	<baseDirectory>helyx-logging4me-${project.version}</baseDirectory>
 	<includeSiteDirectory>true</includeSiteDirectory>
 	<fileSets>
 		<fileSet>
@@ -42,8 +41,7 @@
 	</fileSets>
 	<files>
 		<file>
-			<source>target/logging4me-${project.version}.jar
-			</source>
+			<source>target/logging4me-${project.version}.jar</source>
 		</file>
 	</files>
 </assembly>
