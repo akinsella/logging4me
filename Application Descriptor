@@ -1,0 +1,8 @@
+MIDlet-Version: 1.0
+MIDlet-Info-URL: http://logging4me.helyx.org
+MIDlet-Vendor: Helyx.org
+MIDlet-Jar-URL: logging4me.jar
+MicroEdition-Configuration: CLDC-1.1
+MIDlet-Description: Logging4ME
+MicroEdition-Profile: MIDP-2.0
+MIDlet-Name: Logging4ME
