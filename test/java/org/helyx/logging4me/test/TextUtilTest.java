@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.helyx.log4me.test;
+package org.helyx.logging4me.test;
 
 import junit.framework.TestCase;
 
