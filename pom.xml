@@ -8,7 +8,7 @@
 
 	<groupId>org.helyx</groupId>
 	<artifactId>logging4me</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
+	<version>1.0.0</version>
 
 	<name>Logging4ME</name>
 
