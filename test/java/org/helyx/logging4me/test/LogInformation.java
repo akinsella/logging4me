@@ -15,17 +15,17 @@
  */
 package org.helyx.logging4me.test;
 
-import org.helyx.logging4me.LoggerEvent;
+import org.helyx.logging4me.LogEvent;
 
 public class LogInformation {
 
-	public final LoggerEvent loggerEvent;
+	public final LogEvent logEvent;
 	
 	public final String resultMessage;
 
-	public LogInformation(LoggerEvent loggerEvent, String resultMessage) {
+	public LogInformation(LogEvent logEvent, String resultMessage) {
 		super();
-		this.loggerEvent = loggerEvent;
+		this.logEvent = logEvent;
 		this.resultMessage = resultMessage;
 	}
 

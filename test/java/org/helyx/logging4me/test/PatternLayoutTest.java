@@ -20,7 +20,7 @@ import java.util.Calendar;
 import junit.framework.TestCase;
 
 import org.helyx.logging4me.Logger;
-import org.helyx.logging4me.LoggerEvent;
+import org.helyx.logging4me.LogEvent;
 import org.helyx.logging4me.category.Category;
 import org.helyx.logging4me.layout.pattern.PatternLayout;
 
@@ -43,15 +43,43 @@ public class PatternLayoutTest extends TestCase {
 		
 		String pattern = "| %T | %L | %C | %D{yyyy/MM/dd, HH:mm:ss.ZZ} | ";
 		
-//		Thread.currentThread().setName("MAIN");
+		Thread.currentThread().setName("TEST");
 		
 		PatternLayout patternLayout = new PatternLayout(pattern);
 		
 		Logger logger = new Logger(new Category(TEST_CATEGORY, Logger.INFO));
 		
-		String patternFormatterResult = patternLayout.format(new LoggerEvent(Logger.INFO, logger, TEST_CONTENT, calendar.getTime()));
+		String patternFormatterResult = patternLayout.format(new LogEvent(Logger.INFO, logger, TEST_CONTENT, calendar.getTime()));
 		
 		System.out.println("Result: " + patternFormatterResult);
+		
+		assertTrue(patternFormatterResult.indexOf(Logger.getLevelName(Logger.INFO)) >= 0);
+	}
+
+	public void testPatternLayoutDefaultLevel() {
+		
+		Calendar calendar = Calendar.getInstance();
+		calendar.set(Calendar.YEAR, 2009);
+		calendar.set(Calendar.MONTH, 4);
+		calendar.set(Calendar.DATE, 18);
+		calendar.set(Calendar.HOUR, 23);
+		calendar.set(Calendar.MINUTE, 47);
+		calendar.set(Calendar.SECOND, 56);
+		calendar.set(Calendar.MILLISECOND, 9);
+		
+		String pattern = "| %T | %L | %C | %D{yyyy/MM/dd, HH:mm:ss.ZZ} | ";
+		
+		Thread.currentThread().setName("TEST");
+		
+		PatternLayout patternLayout = new PatternLayout(pattern);
+		
+		Logger logger = Logger.getLogger(PatternLayout.class);
+		
+		String patternFormatterResult = patternLayout.format(new LogEvent(Logger.INFO, logger, TEST_CONTENT, calendar.getTime()));
+		
+		System.out.println("Result: " + patternFormatterResult);
+		
+		assertTrue(patternFormatterResult.indexOf(Logger.getLevelName(Logger.INFO)) >= 0);
 	}
 
 }
