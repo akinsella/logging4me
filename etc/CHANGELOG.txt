@@ -18,6 +18,13 @@
 ChangeLog:
 -------
 
+Version 1.0.1 - Initiale release:
+
+- BUGFIXES:
+	- PatternLayout always prints TRACE log level in for every log output
+- Tests added
+
+
 Version 1.0.0 - Initiale release:
 
 - Logging features optimized for J2ME & ANDROID systems
