@@ -56,7 +56,7 @@ public class PatternLayout implements Layout {
 		tokenMap.put(LEVEL, new PatternPartFormatter() {
 
 			public String getValue(LoggerEvent loggerEvent) {
-				return Logger.getLevelName(loggerEvent.logger.getCategory().getLevel());
+				return Logger.getLevelName(loggerEvent.level);
 			}
 			
 		});
