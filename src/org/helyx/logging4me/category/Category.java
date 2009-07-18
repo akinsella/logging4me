@@ -19,7 +19,7 @@ import java.util.Enumeration;
 import java.util.Vector;
 
 import org.helyx.logging4me.Logger;
-import org.helyx.logging4me.LoggerEvent;
+import org.helyx.logging4me.LogEvent;
 import org.helyx.logging4me.appender.Appender;
 
 public class Category {
@@ -131,18 +131,18 @@ public class Category {
 		return Logger.TRACE >= level;
 	}
 
-	public void flushLoggerEventToAppenders(LoggerEvent loggerEvent) {
+	public void flushLogEventToAppenders(LogEvent logEvent) {
 		
 		if (appenderList != null) {
 			Enumeration _enum = appenderList.elements();
 			while (_enum.hasMoreElements()) {
 				Appender appender = (Appender)_enum.nextElement();
-				appender.write(loggerEvent);
+				appender.write(logEvent);
 			}
 		}
 		
 		if (additive && parent != null) {
-			parent.flushLoggerEventToAppenders(loggerEvent);
+			parent.flushLogEventToAppenders(logEvent);
 		}
 	}
 	

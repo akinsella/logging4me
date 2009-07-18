@@ -16,7 +16,7 @@
 package org.helyx.logging4me.appender;
 
 import org.helyx.logging4me.Logger;
-import org.helyx.logging4me.LoggerEvent;
+import org.helyx.logging4me.LogEvent;
 
 public class ConsoleAppender extends AbstractAppender {
 	
@@ -26,9 +26,9 @@ public class ConsoleAppender extends AbstractAppender {
 		super();
 	}
 
-	public void onWrite(LoggerEvent loggerEvent, String logMessage) {
+	public void onWrite(LogEvent logEvent, String logMessage) {
 		try {			
-			if (loggerEvent.level == Logger.FATAL || loggerEvent.level == Logger.ERROR) {
+			if (logEvent.level == Logger.FATAL || logEvent.level == Logger.ERROR) {
 				System.err.println(logMessage);
 			}
 			else {

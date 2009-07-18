@@ -19,7 +19,7 @@ import java.util.Hashtable;
 import java.util.Vector;
 
 import org.helyx.logging4me.Logger;
-import org.helyx.logging4me.LoggerEvent;
+import org.helyx.logging4me.LogEvent;
 import org.helyx.logging4me.layout.Layout;
 import org.helyx.logging4me.layout.PatternPartFormatter;
 
@@ -47,7 +47,7 @@ public class PatternLayout implements Layout {
 		
 		tokenMap.put(THREAD, new PatternPartFormatter() {
 
-			public String getValue(LoggerEvent loggerEvent) {
+			public String getValue(LogEvent logEvent) {
 				return Thread.currentThread().getName();
 			}
 			
@@ -55,16 +55,16 @@ public class PatternLayout implements Layout {
 		
 		tokenMap.put(LEVEL, new PatternPartFormatter() {
 
-			public String getValue(LoggerEvent loggerEvent) {
-				return Logger.getLevelName(loggerEvent.level);
+			public String getValue(LogEvent logEvent) {
+				return Logger.getLevelName(logEvent.level);
 			}
 			
 		});
 		
 		tokenMap.put(CATEGORY, new PatternPartFormatter() {
 
-			public String getValue(LoggerEvent loggerEvent) {
-				return loggerEvent.logger.getCategory().getName();
+			public String getValue(LogEvent logEvent) {
+				return logEvent.logger.getCategory().getName();
 			}
 			
 		});
@@ -137,14 +137,14 @@ public class PatternLayout implements Layout {
 
 	}
 
-	public String format(LoggerEvent loggerEvent) {
+	public String format(LogEvent logEvent) {
 		StringBuffer sb = new StringBuffer(64);
 		int length = tokens.length;
 		for (int i = 0 ; i < length ; i++) {
 			Object token = tokens[i]; 
 			if (token instanceof PatternPartFormatter) {
 				PatternPartFormatter patternPartFormatter = (PatternPartFormatter)token;
-				String value = patternPartFormatter.getValue(loggerEvent);
+				String value = patternPartFormatter.getValue(logEvent);
 				sb.append(value);
 			}
 			else {
@@ -152,7 +152,7 @@ public class PatternLayout implements Layout {
 			}
 		}
 
-		sb.append(loggerEvent.message);
+		sb.append(logEvent.message);
 
 		String result = sb.toString();
 		

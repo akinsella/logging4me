@@ -15,10 +15,10 @@
  */
 package org.helyx.logging4me.layout;
 
-import org.helyx.logging4me.LoggerEvent;
+import org.helyx.logging4me.LogEvent;
 
 public interface Layout {
 
-	public String format(LoggerEvent loggerEvent);
+	public String format(LogEvent logEvent);
 	
 }

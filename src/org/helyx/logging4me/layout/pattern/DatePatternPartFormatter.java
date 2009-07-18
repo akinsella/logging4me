@@ -17,7 +17,7 @@ package org.helyx.logging4me.layout.pattern;
 
 import java.util.Date;
 
-import org.helyx.logging4me.LoggerEvent;
+import org.helyx.logging4me.LogEvent;
 import org.helyx.logging4me.format.date.DateFormatter;
 import org.helyx.logging4me.layout.PatternPartFormatter;
 
@@ -31,7 +31,7 @@ public class DatePatternPartFormatter implements PatternPartFormatter {
 		this.dateFormatter = new DateFormatter(dateFormat);
 	}
 
-	public String getValue(LoggerEvent loggerEvent) {
+	public String getValue(LogEvent logEvent) {
 		return dateFormatter.format(new Date());
 	}
 	

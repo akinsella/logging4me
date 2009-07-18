@@ -15,11 +15,11 @@
  */
 package org.helyx.logging4me.layout;
 
-import org.helyx.logging4me.LoggerEvent;
+import org.helyx.logging4me.LogEvent;
 
 
 public interface PatternPartFormatter {
 	
-	String getValue(LoggerEvent loggerEvent);
+	String getValue(LogEvent logEvent);
 	
 }

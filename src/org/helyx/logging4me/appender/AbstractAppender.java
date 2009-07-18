@@ -16,7 +16,7 @@
 package org.helyx.logging4me.appender;
 
 import org.helyx.logging4me.Logger;
-import org.helyx.logging4me.LoggerEvent;
+import org.helyx.logging4me.LogEvent;
 import org.helyx.logging4me.layout.Layout;
 
 public abstract class AbstractAppender implements Appender {
@@ -29,12 +29,12 @@ public abstract class AbstractAppender implements Appender {
 		super();
 	}
 
-	public void write(LoggerEvent loggerEvent) {
+	public void write(LogEvent logEvent) {
 		try {
 			
-			if(isLoggable(loggerEvent.level)) {
-				String logMessage = formatLog(loggerEvent);
-				onWrite(loggerEvent, logMessage);
+			if(isLoggable(logEvent.level)) {
+				String logMessage = formatLog(logEvent);
+				onWrite(logEvent, logMessage);
 			}
 		}
 		catch(Exception e) { 
@@ -42,13 +42,13 @@ public abstract class AbstractAppender implements Appender {
 		}
 	}
 
-	public abstract void onWrite(LoggerEvent loggerEvent, String logMessage);
+	public abstract void onWrite(LogEvent logEvent, String logMessage);
 	
-	protected String formatLog(LoggerEvent loggerEvent) {
+	protected String formatLog(LogEvent logEvent) {
 		if (layout == null) {
-			return loggerEvent.message;
+			return logEvent.message;
 		}
-		return layout.format(loggerEvent);
+		return layout.format(logEvent);
 	}
 	
 	public int getThresholdLevel() {

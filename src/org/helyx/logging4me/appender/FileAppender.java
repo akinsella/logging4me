@@ -20,7 +20,7 @@ import java.io.PrintStream;
 import javax.microedition.io.Connector;
 import javax.microedition.io.file.FileConnection;
 
-import org.helyx.logging4me.LoggerEvent;
+import org.helyx.logging4me.LogEvent;
 import org.helyx.logging4me.system.SystemLogger;
 import org.helyx.logging4me.util.FileUtil;
 
@@ -39,7 +39,7 @@ public class FileAppender extends AbstractAppender {
 		this.filePath = filePath;
 	}
 
-	public void onWrite(LoggerEvent loggerEvent, String logMessage) {
+	public void onWrite(LogEvent logEvent, String logMessage) {
 		try {
 			if (ps != null) {
 				ps.print(logMessage + "\r\n");

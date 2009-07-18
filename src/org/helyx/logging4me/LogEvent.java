@@ -17,7 +17,7 @@ package org.helyx.logging4me;
 
 import java.util.Date;
 
-public class LoggerEvent {
+public class LogEvent {
 
 	public final int level;
 	
@@ -29,7 +29,7 @@ public class LoggerEvent {
 	
 	public final Date date;
 
-	public LoggerEvent(int level, Logger logger, String message) {
+	public LogEvent(int level, Logger logger, String message) {
 		super();
 		this.level = level;
 		this.logger = logger;
@@ -38,7 +38,7 @@ public class LoggerEvent {
 		this.date = new Date(time);
 	}
 
-	public LoggerEvent(int level, Logger logger, String message, Date date) {
+	public LogEvent(int level, Logger logger, String message, Date date) {
 		super();
 		this.level = level;
 		this.logger = logger;

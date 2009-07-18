@@ -95,9 +95,9 @@ public class Logger {
 			message = object.toString();
 		}
 		
-		LoggerEvent loggerEvent = new LoggerEvent(level, this, message);
+		LogEvent logEvent = new LogEvent(level, this, message);
 		
-		category.flushLoggerEventToAppenders(loggerEvent);
+		category.flushLogEventToAppenders(logEvent);
 	}
 
 	public void fatal(Object object) {

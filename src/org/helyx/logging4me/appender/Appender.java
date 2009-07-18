@@ -15,7 +15,7 @@
  */
 package org.helyx.logging4me.appender;
 
-import org.helyx.logging4me.LoggerEvent;
+import org.helyx.logging4me.LogEvent;
 import org.helyx.logging4me.layout.Layout;
 
 
@@ -23,7 +23,7 @@ public interface Appender {
 	
 	String getName();
 
-	void write(LoggerEvent loggerEvent);
+	void write(LogEvent logEvent);
 
 	void open() throws Exception;
 
