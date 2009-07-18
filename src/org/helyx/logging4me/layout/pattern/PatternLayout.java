@@ -47,7 +47,7 @@ public class PatternLayout implements Layout {
 		
 		tokenMap.put(THREAD, new PatternPartFormatter() {
 
-			public String getValue(Logger logger) {
+			public String getValue(LoggerEvent loggerEvent) {
 				return Thread.currentThread().getName();
 			}
 			
@@ -55,16 +55,16 @@ public class PatternLayout implements Layout {
 		
 		tokenMap.put(LEVEL, new PatternPartFormatter() {
 
-			public String getValue(Logger logger) {
-				return Logger.getLevelName(logger.getCategory().getLevel());
+			public String getValue(LoggerEvent loggerEvent) {
+				return Logger.getLevelName(loggerEvent.logger.getCategory().getLevel());
 			}
 			
 		});
 		
 		tokenMap.put(CATEGORY, new PatternPartFormatter() {
 
-			public String getValue(Logger logger) {
-				return logger.getCategory().getName();
+			public String getValue(LoggerEvent loggerEvent) {
+				return loggerEvent.logger.getCategory().getName();
 			}
 			
 		});
@@ -144,7 +144,7 @@ public class PatternLayout implements Layout {
 			Object token = tokens[i]; 
 			if (token instanceof PatternPartFormatter) {
 				PatternPartFormatter patternPartFormatter = (PatternPartFormatter)token;
-				String value = patternPartFormatter.getValue(loggerEvent.logger);
+				String value = patternPartFormatter.getValue(loggerEvent);
 				sb.append(value);
 			}
 			else {
