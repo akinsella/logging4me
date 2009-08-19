@@ -62,8 +62,32 @@ public class Logger {
 			case Logger.TRACE:
 				return TRACE_STR;
 			default:
-				return ERROR_STR;
+				throw new UnknownLoggerLevelException("Level value : " + level);
 		}
+	}
+
+
+	public static int getLevelValue(String level) {
+		if (FATAL_STR.equals(level)) {
+			return FATAL;
+		}
+		if (ERROR_STR.equals(level)) {
+			return ERROR;
+		}
+		if (WARN_STR.equals(level)) {
+			return WARN;
+		}
+		if (INFO_STR.equals(level)) {
+			return INFO;
+		}
+		if (DEBUG_STR.equals(level)) {
+			return DEBUG;
+		}
+		if (TRACE_STR.equals(level)) {
+			return TRACE;
+		}
+		
+		throw new UnknownLoggerLevelException("Level name : " + level);
 	}
 
 
@@ -216,5 +240,5 @@ public class Logger {
 	public static Logger getLogger(Class _class) {
 		return LoggerManager.getLogger(_class);
 	}
-
+	
 }
