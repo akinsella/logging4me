@@ -43,7 +43,7 @@ public class PatternLayoutTest extends TestCase {
 		
 		String pattern = "| %T | %L | %C | %D{yyyy/MM/dd, HH:mm:ss.ZZ} | ";
 		
-		Thread.currentThread().setName("TEST");
+//		Thread.currentThread().setName("TEST");
 		
 		PatternLayout patternLayout = new PatternLayout(pattern);
 		
@@ -69,7 +69,7 @@ public class PatternLayoutTest extends TestCase {
 		
 		String pattern = "| %T | %L | %C | %D{yyyy/MM/dd, HH:mm:ss.ZZ} | ";
 		
-		Thread.currentThread().setName("TEST");
+//		Thread.currentThread().setName("TEST");
 		
 		PatternLayout patternLayout = new PatternLayout(pattern);
 		
