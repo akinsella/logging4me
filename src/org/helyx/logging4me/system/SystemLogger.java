@@ -15,6 +15,8 @@
  */
 package org.helyx.logging4me.system;
 
+import org.helyx.logging4me.LoggerManager;
+
 public class SystemLogger {
 	
 	private static final String PREFIX_DEBUG = "Logging4ME|DEBUG|";
@@ -26,7 +28,9 @@ public class SystemLogger {
 	}
 
 	public static void debug(String category, String message) {
-		System.out.println(PREFIX_DEBUG + category + "| " + message);
+		if (LoggerManager.isDebugMode()) {
+			System.out.println(PREFIX_DEBUG + category + "| " + message);
+		}
 	}
 
 	public static void debug(String category, String message, Throwable t) {

@@ -29,15 +29,17 @@
 	<!-- Appenders -->
 	<appender name="console" class="org.helyx.logging4me.appender.ConsoleAppender">
 		<property name="thresholdLevel" value="INFO" />
-		<property name="layout" value="sl" />
+		<property name="layout" value="pl" />
 	</appender>
-
+	
+	<!-- 
 	<appender name="file" class="org.helyx.logging4me.appender.FileAppender" >
 		<property name="filePath" value="target/log/app.log" />
 		<property name="thresholdLevel" value="DEBUG" />
-		<property name="layout" value="pl" />
+		<property name="layout" value="sl" />
 	</appender>
-
+	-->
+ 
 	<category name="org.helyx.logging4me" level="DEBUG" />
 	
 </logging4me>

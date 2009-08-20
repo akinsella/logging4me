@@ -20,10 +20,6 @@ public class PatternLayoutProcessor implements IElementProcessor {
 		else {
 			patternLayout = new PatternLayout();
 		}
-		if (propertyMap.containsKey("separator")) {
-			String separator = (String)propertyMap.get("separator");
-			patternLayout.setSeparator(separator);			
-		}
 		
 		return patternLayout;
 	}

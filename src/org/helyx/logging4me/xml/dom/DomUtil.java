@@ -13,7 +13,7 @@ import org.xmlpull.v1.XmlPullParserException;
 
 public class DomUtil {
 
-	private static final String CAT = "DOM_UTIL";
+//	private static final String CAT = "DOM_UTIL";
 
 	public static Document parseDoc(Reader reader) throws XmlPullParserException, IOException {
 		KXmlParser parser = new KXmlParser();

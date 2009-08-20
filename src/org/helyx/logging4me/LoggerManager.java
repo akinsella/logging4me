@@ -17,7 +17,6 @@ package org.helyx.logging4me;
 
 import java.util.Enumeration;
 import java.util.Hashtable;
-import java.util.Vector;
 
 import org.helyx.logging4me.appender.Appender;
 import org.helyx.logging4me.category.Category;
@@ -27,7 +26,7 @@ public class LoggerManager {
 	
 	private static final String CAT = "LOGGER_MANAGER";
 	
-	private static Vector appenderList = new Vector();
+	private static Hashtable appenderMap = new Hashtable();
 	
 	private static Hashtable categoryMap = new Hashtable();
 	
@@ -72,17 +71,17 @@ public class LoggerManager {
 	}
 	
 	public static void registerAppender(Appender appender) {
-		if (!appenderList.contains(appender)) {
+		if (!appenderMap.containsKey(appender.getName())) {
 			if (!appender.isOpened()) {
 				SystemLogger.warn(CAT, "Appender[" + appender.getName() + "] is not open!");
 			}
-			appenderList.addElement(appender);
+			appenderMap.put(appender.getName(), appender);
 		}
 	}
 	
 	public static void unregisterAppender(Appender appender) {
-		if (appenderList.contains(appender)) {
-			appenderList.removeElement(appender);
+		if (appenderMap.containsKey(appender.getName())) {
+			appenderMap.remove(appender.getName());
 		}
 		Enumeration _enum = categoryMap.elements();
 		
@@ -198,11 +197,11 @@ public class LoggerManager {
 	}
 
 	private static void removeAllRegisteredAppenders() {
-		appenderList.removeAllElements();
+		appenderMap.clear();
 	}
 
 	private static void closeAllRegisteredAppenders() {
-		Enumeration _enum = appenderList.elements();
+		Enumeration _enum = appenderMap.elements();
 		while(_enum.hasMoreElements()) {
 			Appender appender = (Appender)_enum.nextElement();
 			try {
@@ -213,13 +212,17 @@ public class LoggerManager {
 			}
 		}
 		
-		appenderList.removeAllElements();
+		appenderMap.clear();
 	}
 
 	public static Category getRootCategory() {
 		return rootCategory;
 	}
 
+	public static Appender getAppender(String appenderName) {
+		Appender appender = (Appender)appenderMap.get(appenderName);
+		return appender;
+	}
 
 	public static Logger getLogger(Class _class) {
 		return getLogger(_class.getName());

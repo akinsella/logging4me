@@ -18,21 +18,19 @@ package org.helyx.logging4me.layout.pattern;
 import java.util.Hashtable;
 import java.util.Vector;
 
-import org.helyx.logging4me.Logger;
 import org.helyx.logging4me.LogEvent;
+import org.helyx.logging4me.Logger;
 import org.helyx.logging4me.layout.Layout;
 import org.helyx.logging4me.layout.PatternPartFormatter;
 
 public class PatternLayout implements Layout {
-
-	private String separator = " - ";
 	
 	public static final String DEFAULT_PATTERN = "| %T | %L | %C | %D{yyyy/MM/dd, HH:mm:ss.ZZ} | ";
 	
 	private String pattern = DEFAULT_PATTERN;
 
 	private static final String THREAD = "T";
-	private static final String DATE = "D";
+//	private static final String DATE = "D";
 	private static final String CATEGORY = "C";
 	private static final String LEVEL = "L";
 
@@ -159,12 +157,7 @@ public class PatternLayout implements Layout {
 		return result;
 	}
 
-	public String getSeparator() {
-		return separator;
+	public String getPattern() {
+		return pattern;
 	}
-
-	public void setSeparator(String separator) {
-		this.separator = separator;
-	}
-
 }

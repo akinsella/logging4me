@@ -17,13 +17,34 @@ package org.helyx.logging4me.test;
 
 import junit.framework.TestCase;
 
+import org.helyx.logging4me.Logger;
+import org.helyx.logging4me.LoggerManager;
+import org.helyx.logging4me.appender.Appender;
+import org.helyx.logging4me.category.Category;
 import org.helyx.logging4me.config.LoggerConfigurer;
 import org.helyx.logging4me.config.XmlConfigurer;
+import org.helyx.logging4me.layout.pattern.PatternLayout;
 
 public class XmlConfigurerTest extends TestCase {
 
 	public void testXmlConfigurer() {
-		LoggerConfigurer loggerConfigurer = new XmlConfigurer("/org/helyx/logging4me/test/logging4me.xml");
+		LoggerConfigurer loggerConfigurer = new XmlConfigurer("/org/helyx/logging4me/test/logging4me.xml", true);
 		loggerConfigurer.configure();
+		assertTrue(LoggerManager.isDebugMode());
+		assertEquals(Logger.DEBUG, LoggerManager.getThresholdLevel());
+		Category cateogry = LoggerManager.getCategory("org.helyx.logging4me");
+		assertNotNull(cateogry);
+		assertEquals(Logger.DEBUG, cateogry.getLevel());
+		assertEquals("org.helyx.logging4me", cateogry.getName());
+		
+		Appender consoleAppender = LoggerManager.getAppender("CONSOLE");
+		assertNotNull(consoleAppender);
+		assertEquals("CONSOLE", consoleAppender.getName());
+		assertTrue(consoleAppender.isOpened());
+		assertEquals(Logger.INFO, consoleAppender.getThresholdLevel());
+		PatternLayout patternLayout = (PatternLayout)consoleAppender.getLayout();
+		assertNotNull(patternLayout);
+		assertEquals("|%T|%L|%C|%D{yyyy/MM/dd, HH:mm:ss.ZZ}| ", patternLayout.getPattern());
+//		assertNotNull(LoggerManager.getAppender("FILE"));
 	}	
 }

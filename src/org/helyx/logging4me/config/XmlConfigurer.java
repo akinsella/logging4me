@@ -63,20 +63,31 @@ public class XmlConfigurer implements LoggerConfigurer {
 	private Hashtable elementProcessorRegistry = new Hashtable();
 	
 	private Hashtable layoutMap = new Hashtable();
-	
+		
 	public XmlConfigurer(String resourcePath) {
+		this(resourcePath, false);
+	}
+	
+	public XmlConfigurer(String resourcePath, boolean debugMode) {
+		super();
 		this.resourcePath = resourcePath;
 		encoding = System.getProperty(MICROEDITION_ENCODING);
 		if (encoding == null) {
 			encoding = ENCODING_ISO_8859_1;
 		}
+		LoggerManager.setDebugMode(debugMode);
 		initDefaultElementProcessors();
 	}
-
+	
 	public XmlConfigurer(String resourcePath, String encoding) {
+		this(resourcePath, encoding, false);
+	}
+
+	public XmlConfigurer(String resourcePath, String encoding, boolean debugMode) {
 		super();
 		this.resourcePath = resourcePath;
 		this.encoding = encoding;
+		LoggerManager.setDebugMode(debugMode);
 		initDefaultElementProcessors();
 	}
 
@@ -145,11 +156,6 @@ public class XmlConfigurer implements LoggerConfigurer {
 		}
 		int thresholdLevel = Logger.getLevelValue(thresholdLevelStr);
 		LoggerManager.setThresholdLevel(thresholdLevel);
-
-		if (domAttributeProcessor.attrExists("debugMode")) {
-			boolean debugMode = domAttributeProcessor.getAttrValueAsBoolean("debugMode");
-			LoggerManager.setDebugMode(debugMode);
-		}
 	}
 
 	private void processCategoryElement(Element layoutElement) {
