@@ -18,7 +18,13 @@
 ChangeLog:
 -------
 
-Version 1.0.1 - Initiale release:
+Version 1.0.2:
+
+- New Features:
+	- XmlConfigurator support and xml configuration extensibility
+- Tests added
+
+Version 1.0.1:
 
 - BUGFIXES:
 	- PatternLayout always prints TRACE log level in for every log output
