@@ -21,16 +21,9 @@ public class XmlParsingException extends RuntimeException {
 		super();
 	}
 
-	public XmlParsingException(String message, Throwable cause) {
-		super(message, cause);
-	}
-
 	public XmlParsingException(String message) {
 		super(message);
 	}
 
-	public XmlParsingException(Throwable cause) {
-		super(cause);
-	}
 
 }
