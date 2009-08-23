@@ -16,12 +16,11 @@
 
 -->
 <assembly>
-	<id>bin</id>
+	<id>dist</id>
 	<formats>
 		<format>zip</format>
 		<format>tar.gz</format>
 	</formats>
-	<baseDirectory>helyx-logging4me-${project.version}</baseDirectory>
 	<includeSiteDirectory>true</includeSiteDirectory>
 	<fileSets>
 		<fileSet>
