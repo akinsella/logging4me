@@ -16,7 +16,7 @@
 
 	<description>Logging4ME is a logging framework for J2ME platform.</description>
 	<url>http://logging4me.helyx.org</url>
-
+ 
 	<licenses>
 		<license>
 			<name>Apache 2</name>
