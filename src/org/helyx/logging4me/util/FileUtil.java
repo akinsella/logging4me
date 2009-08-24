@@ -29,12 +29,26 @@ public class FileUtil {
 	}
 	
 	public static boolean isApiAvailable() {
+		return isApiAvailable(false);
+	}
+	
+	public static boolean isApiAvailable(boolean testAPIObjects) {
 		boolean isAPIAvailable = false;
 		
 	    if (System.getProperty("microedition.io.file.FileConnection.version") != null) {
 	      isAPIAvailable = true;
+	      return isAPIAvailable;
 	    }
-	    
+	    if (testAPIObjects) {
+	        try {
+		    	FileSystemRegistry.listRoots();
+		    	isAPIAvailable = true;
+		    }
+		    catch(Throwable t) {
+		    	t.printStackTrace();
+		    }
+	    }
+		    
 	    return isAPIAvailable;
 	}
 	

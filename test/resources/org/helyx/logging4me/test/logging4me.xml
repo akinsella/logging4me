@@ -32,13 +32,13 @@
 		<property name="layout" value="pl" />
 	</appender>
 	
-	<!-- 
+	
 	<appender name="file" class="org.helyx.logging4me.appender.FileAppender" >
 		<property name="filePath" value="target/log/app.log" />
 		<property name="thresholdLevel" value="DEBUG" />
 		<property name="layout" value="sl" />
 	</appender>
-	-->
+	
  
  	<!-- Categories -->
 	<category name="org.helyx.logging4me" level="DEBUG" />

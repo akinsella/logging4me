@@ -51,6 +51,12 @@ public class FileAppender extends AbstractAppender {
 	}
 
 	public void open() throws Exception {
+		if (!FileUtil.isApiAvailable(true)) {
+			throw new RuntimeException("JSR-75 - File Connection API not available");
+		}
+		else {
+			SystemLogger.debug(CAT, "JSR-75 - File Connection API is available");
+		}
 		String firstRootPath = FileUtil.findFirstRoot();
 		SystemLogger.debug(CAT, "First root path: " + firstRootPath);
 		fc = FileUtil.openFileConnection(firstRootPath, filePath, Connector.READ_WRITE);
