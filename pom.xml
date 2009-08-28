@@ -102,7 +102,7 @@
 			</properties>
 			<activation>
 				<os>
-					<name>Linux</name>
+					<family>Windows</family>
 				</os>
 			</activation>
 		</profile>
