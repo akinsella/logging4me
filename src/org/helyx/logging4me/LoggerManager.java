@@ -248,4 +248,8 @@ public class LoggerManager {
 		reset(true);
 	}
 
+	public static void dispose() {
+		resetAll();
+	}
+
 }
