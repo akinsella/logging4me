@@ -17,6 +17,7 @@ package org.helyx.logging4me;
 
 import java.util.Enumeration;
 import java.util.Hashtable;
+import java.util.Vector;
 
 import org.helyx.logging4me.appender.Appender;
 import org.helyx.logging4me.category.Category;
@@ -219,6 +220,28 @@ public class LoggerManager {
 		return rootCategory;
 	}
 
+	public static Vector getAppenderList() {
+		Vector appenderList = new Vector();
+		Enumeration _enum = appenderMap.elements();
+		while(_enum.hasMoreElements()) {
+			Appender appender = (Appender)_enum.nextElement();
+			appenderList.addElement(appender);
+		}
+		
+		return appenderList;
+	}
+	
+	public static Vector getCategoryList() {
+		Vector categoryList = new Vector();
+		Enumeration _enum = categoryMap.elements();
+		while(_enum.hasMoreElements()) {
+			Category category = (Category)_enum.nextElement();
+			categoryList.addElement(category);
+		}
+		
+		return categoryList;
+	}
+	
 	public static Appender getAppender(String appenderName) {
 		Appender appender = (Appender)appenderMap.get(appenderName);
 		return appender;
