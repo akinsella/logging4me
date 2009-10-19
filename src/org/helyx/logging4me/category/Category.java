@@ -20,7 +20,10 @@ import java.util.Vector;
 
 import org.helyx.logging4me.Logger;
 import org.helyx.logging4me.LogEvent;
+import org.helyx.logging4me.LoggerManager;
 import org.helyx.logging4me.appender.Appender;
+
+import com.sun.midp.io.j2me.file.RootCache;
 
 public class Category {
 	
@@ -141,8 +144,15 @@ public class Category {
 			}
 		}
 		
-		if (additive && parent != null) {
-			parent.flushLogEventToAppenders(logEvent);
+		if (additive) {
+			if (parent != null) {
+				parent.flushLogEventToAppenders(logEvent);
+			}
+			else {
+				if (this != LoggerManager.getRootCategory()) {
+					LoggerManager.getRootCategory().flushLogEventToAppenders(logEvent);
+				}
+			}
 		}
 	}
 	
