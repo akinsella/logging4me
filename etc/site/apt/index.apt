@@ -1,5 +1,5 @@
 ~~
-~~ Copyright (C) 2007-2009 Alexis Kinsella - http://www.helyx.org - <Helyx.org>
+~~ Copyright (C) 2007-2010 Alexis Kinsella - http://www.helyx.org - <Helyx.org>
 ~~
 ~~ Licensed under the Apache License, Version 2.0 (the "License");
 ~~ you may not use this file except in compliance with the License.
@@ -30,7 +30,7 @@
   ---
   Alexis Kinsella
   ---
-  2009-06-11
+  2010-03-11
   ---
  
   Welcome!
@@ -44,3 +44,6 @@
    * {{{http://wiki.helyx.org/doku.php?id=logging4me:downloads}Download page}}
    
    * {{{http://wiki.helyx.org/doku.php?id=logging4me}Wiki}}
+   
+   * {{{http://code.google.com/p/logging4me/}Google Code - Project page}}
+   

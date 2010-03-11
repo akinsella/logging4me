@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2007-2009 Alexis Kinsella - http://www.helyx.org - <Helyx.org>
+ * Copyright (C) 2007-2010 Alexis Kinsella - http://www.helyx.org - <Helyx.org>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,22 +14,36 @@
  * limitations under the License.
  */
  
--------
+----------------------------------------------------------------------------------
 ChangeLog:
--------
+----------------------------------------------------------------------------------
+
+----------------------------------------------------------------------------------
+
+Version 1.0.3:
+
+- Bug fixes:
+	- Logger hierarchy was partially broken
+
+----------------------------------------------------------------------------------
 
 Version 1.0.2:
 
 - New Features:
 	- XmlConfigurator support and xml configuration extensibility
-- Tests added
+- Changes:
+	- Tests added
+
+----------------------------------------------------------------------------------
 
 Version 1.0.1:
 
-- BUGFIXES:
+- Bug fixes:
 	- PatternLayout always prints TRACE log level in for every log output
-- Tests added
+- Changes:
+	- Tests added
 
+----------------------------------------------------------------------------------
 
 Version 1.0.0 - Initiale release:
 
